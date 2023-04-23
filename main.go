@@ -25,16 +25,19 @@ func main() {
 	db, err := ent.Open("gremlin", dbURL)
 
 	if err != nil {
-		logrus.Fatalln(err)
+		logrus.Fatalln("DB Connection error:", err)
 	}
 
 	dataBundle, err := lib.GetBundleFromUrl(downloadSrcUrl)
 
 	if err != nil {
-		logrus.Fatalln(err)
+		logrus.Fatalln("Data pull error", err)
 	}
 
 	ctx := context.Background()
-	_, _ = db.AttackPattern.Delete().Exec(ctx) // reset previous data
+	_, err = db.AttackPattern.Delete().Exec(ctx) // reset previous data
+	if err != nil {
+		logrus.Fatalln("Error resting DB", err)
+	}
 	lib.PushAttackPatternsToDB(ctx, db, dataBundle.Objects, stripDollar)
 }

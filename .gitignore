@@ -1,0 +1,6 @@
+.idea
+
+ent/*
+!ent/schema
+!ent/templates
+!ent/generate.go

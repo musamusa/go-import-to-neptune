@@ -53,7 +53,7 @@ func PushAttackPatternsToDB(ctx context.Context, db *ent.Client, objects []map[s
 			_, err := item.Save(ctx)
 
 			if err != nil {
-				logrus.Fatalln(err)
+				logrus.Fatalln("Error saving data", err)
 			}
 		}
 	}
